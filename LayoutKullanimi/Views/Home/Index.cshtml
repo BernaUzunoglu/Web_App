@@ -1,0 +1,19 @@
+﻿@model List<Urun>
+@{
+    ViewBag.Title = "Ana Sayfa @ View";
+}
+
+<h1>Bernaı111111111juhgfrr</h1>
+@foreach(var item in Model)
+{
+  <p>
+      @item.Id-@item.Ad- @($"{item.Fiyat:c2}")
+  </p>  
+
+}
+
+@section Scripts{
+   <script>
+        AppSelamla();
+   </script>
+}
