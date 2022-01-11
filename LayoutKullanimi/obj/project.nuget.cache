@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rtW6qGJGtEkuhBvJgatO7bgR/VOT+72T99HjdEtQiSGIImirqDojaJiNtZAOvdpTR7MsGQr+Ghl+0uOpENVB5A==",
+  "dgSpecHash": "Xf6dfle5TfiZp0MyCIYfKgh9nKfT8/em5rIjCwaDUy9SUi+HHoQjkPwHrQHrBTB1u2M2i27BHXt1sDbmpZBDjg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\BERNA\\source\\repos\\Web_App\\LayoutKullanimi\\LayoutKullanimi.csproj",
+  "projectFilePath": "C:\\Users\\BERNA\\Desktop\\Web_App\\LayoutKullanimi\\LayoutKullanimi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\BERNA\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.extensions\\5.0.13\\microsoft.aspnetcore.mvc.razor.extensions.5.0.13.nupkg.sha512",
     "C:\\Users\\BERNA\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.runtimecompilation\\5.0.13\\microsoft.aspnetcore.mvc.razor.runtimecompilation.5.0.13.nupkg.sha512",

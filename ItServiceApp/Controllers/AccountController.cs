@@ -1,4 +1,5 @@
-﻿using ItServiceApp.Extensions;
+﻿using AutoMapper;
+using ItServiceApp.Extensions;
 using ItServiceApp.Models;
 using ItServiceApp.Models.Identity;
 using ItServiceApp.Services;
@@ -15,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace ItServiceApp.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         //servislerin kullanımı için fieldlar oluşturuldu
@@ -22,16 +24,20 @@ namespace ItServiceApp.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<AplicationRole> _roleManager;
         private readonly IEmailSender _emailSender;
+        private readonly IMapper _mapper;
+
+
 
         //field lar için referans eşleme yapıldı.
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-            RoleManager<AplicationRole> roleManager, IEmailSender emailSender)
+            RoleManager<AplicationRole> roleManager, IEmailSender emailSender, IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _roleManager= roleManager;
+            _roleManager = roleManager;
             _emailSender = emailSender;
             CheckRoles();
+            _mapper = mapper;
         }
 
         private void CheckRoles()
@@ -55,6 +61,7 @@ namespace ItServiceApp.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
         [HttpPost]
         //async çalışınca kitlenme olmaz işlem  bitince sistem kaldığı yerden devam eder.
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -76,7 +83,7 @@ namespace ItServiceApp.Controllers
             user = await _userManager.FindByEmailAsync(model.Email);
             if (user != null)
             {
-                ModelState.AddModelError(nameof(model.Email), "Bu kullanıcı adı daha önce sisteme kaıt edilmiştir.");
+                ModelState.AddModelError(nameof(model.Email), "Bu kullanıcı adı daha önce sisteme kayıt edilmiştir.");
                 return View(model);
             }
 
@@ -96,7 +103,7 @@ namespace ItServiceApp.Controllers
                 //TODO:kullanıcıya rol atama  TODO ifadesi yapılacaklar listesini tutuar.
                 var count =_userManager.Users.Count();
 
-                result = await _userManager.AddToRoleAsync(user, count == 1 ? RoleNames.Admin : RoleNames.User);
+                result = await _userManager.AddToRoleAsync(user, count == 1 ? RoleNames.Admin : RoleNames.Passive);
                 //if(count==1)//admin
                 //{
                 //    result=await _userManager.AddToRoleAsync(user,RoleNames.Admin);
@@ -104,7 +111,6 @@ namespace ItServiceApp.Controllers
                 //else//user
                 //{
                 //    result = await _userManager.AddToRoleAsync(user, RoleNames.User);
-
                 //}
 
 
@@ -137,6 +143,7 @@ namespace ItServiceApp.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail( string userId, string code)
         {
             if(userId == null || code == null)
@@ -162,6 +169,7 @@ namespace ItServiceApp.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Login()
         {
@@ -169,10 +177,12 @@ namespace ItServiceApp.Controllers
             return View();
         }
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
+                //return RedirectToAction("Login");
                 return View(model);
             }
             var result = await _signInManager.PasswordSignInAsync(model.UserName,model.Password,model.RememberMe,true);
@@ -196,30 +206,33 @@ namespace ItServiceApp.Controllers
             }
         }
 
-        [Authorize]
+       
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index","Home");
         }
 
-        [Authorize]
+    
         [HttpGet]
         public async Task<IActionResult> Profile()
         {
             var user = await _userManager.FindByIdAsync(HttpContext.GetUserId());
-            var model = new UserProfileViewModel
-            {
-                Email = user.Email,
-                Name = user.Name,
-                Surname = user.Surname
-            };
+            //var model = new UserProfileViewModel
+            //{
+            //    Email = user.Email,
+            //    Name = user.Name,
+            //    Surname = user.Surname
+            //};
+
+            var model=_mapper.Map<UserProfileViewModel>(user);//AplicationUser tipinden UserProfileViewModel otomatik mapleme - eşleme
 
             return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> Profile( UserProfileViewModel model)
         {
+            //var userModel= _mapper.Map<ApplicationUser>(model);//AutoMapper ters işlemi 
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -260,6 +273,73 @@ namespace ItServiceApp.Controllers
             }
 
             return View(model);
+        }
+
+        public  IActionResult PasswordUpdate()
+        {
+            return View();
+        }
+         [HttpPost]
+        public async Task<IActionResult> PasswordUpdate(PasswordUpdateViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await _userManager.FindByIdAsync(HttpContext.GetUserId());
+
+            var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+
+            if (result.Succeeded)
+            {
+                //email gönder
+                TempData["Message"] = "Şifre değiştirme işleminiz başarılı";
+                return View();
+            }
+            else
+            {
+                var message = string.Join("<br>", result.Errors.Select(x => x.Description));
+                TempData["Message"] = message;
+                return View();
+            }
+            return View();
+
+        }
+
+        [AllowAnonymous]
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult>ResetPassword(string email)
+        {
+            var user= await _userManager.FindByEmailAsync(email);
+            if(user == null)
+            {
+                ViewBag.Message = "Girdiğiniz email sistemimizde bulunamamaktadır.";
+            }
+            else
+            {
+
+                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                var callbackUrl = Url.Action("ConfirmResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Scheme);
+
+                var emailMesage = new EmailMessage()
+                {
+                    Contacts = new string[] { user.Email },
+                    Body = $"Please reset your password by <a href ='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>",
+                    Subject = "Reset Password"
+                };
+
+                await _emailSender.SendAsyc(emailMesage);
+                ViewBag.Message = "Mailinize şifre gücelleme yönergemiz gönderilmiştir.";
+            }
+            return View();
         }
        
     }

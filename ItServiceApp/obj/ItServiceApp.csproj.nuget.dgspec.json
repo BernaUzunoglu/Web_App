@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\BERNA\\source\\repos\\Web_App\\ItServiceApp\\ItServiceApp.csproj": {}
+    "C:\\Users\\BERNA\\Desktop\\Web_App\\ItServiceApp\\ItServiceApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\BERNA\\source\\repos\\Web_App\\ItServiceApp\\ItServiceApp.csproj": {
+    "C:\\Users\\BERNA\\Desktop\\Web_App\\ItServiceApp\\ItServiceApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\BERNA\\source\\repos\\Web_App\\ItServiceApp\\ItServiceApp.csproj",
+        "projectUniqueName": "C:\\Users\\BERNA\\Desktop\\Web_App\\ItServiceApp\\ItServiceApp.csproj",
         "projectName": "ItServiceApp",
-        "projectPath": "C:\\Users\\BERNA\\source\\repos\\Web_App\\ItServiceApp\\ItServiceApp.csproj",
+        "projectPath": "C:\\Users\\BERNA\\Desktop\\Web_App\\ItServiceApp\\ItServiceApp.csproj",
         "packagesPath": "C:\\Users\\BERNA\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\BERNA\\source\\repos\\Web_App\\ItServiceApp\\obj\\",
+        "outputPath": "C:\\Users\\BERNA\\Desktop\\Web_App\\ItServiceApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -44,6 +44,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[11.0.0, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.13, )"

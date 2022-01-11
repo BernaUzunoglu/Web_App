@@ -1,5 +1,6 @@
 using ItServiceApp.Data;
 using ItServiceApp.InjectOrnek;
+using ItServiceApp.MapperProfiles;
 using ItServiceApp.Models.Identity;
 using ItServiceApp.Services;
 using Microsoft.AspNetCore.Builder;
@@ -27,6 +28,7 @@ namespace ItServiceApp
         
         public void ConfigureServices(IServiceCollection services)
         {
+            //IoC Container
             services.AddDbContext<MyContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("SqlConnection"));
@@ -57,6 +59,12 @@ namespace ItServiceApp
                 options.SlidingExpiration = true;    
 
             });
+
+            ///Mapper iþlemi => tipler arasý casting iþlemini hýzlandýrýr. As ile model dönüþümünü otomatik yapar
+            services.AddAutoMapper(options => 
+            {
+                options.AddProfile(typeof(AccountProfile));
+            });
             //services.AddScoped<IMyDependency,MyDependency>();
             services.AddScoped<IMyDependency, NewMyDependency>();// Loose coupling - Solid o- polimorhism
             services.AddTransient<IEmailSender, EmailSender>();// Transient ihtiyaç duydukça
@@ -82,7 +90,7 @@ namespace ItServiceApp
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
+                endpoints.MapControllerRoute(//Controller için default path verme iþlemi
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");// varsayýlan bir rooting oluþturduk.
             });
