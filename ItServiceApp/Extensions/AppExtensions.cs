@@ -12,6 +12,7 @@ namespace ItServiceApp.Extensions
     {
         public static string GetUserId( this HttpContext context)
         {
+            //Claimler; rollerin dışında kullanıcı hakkında bilgi tutmamızı ve bu bilgilere göre yetkilendirme yapmamızı sağlayan yapılardır
             return context.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
 
         }

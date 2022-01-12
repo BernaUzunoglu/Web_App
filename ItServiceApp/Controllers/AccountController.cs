@@ -28,7 +28,7 @@ namespace ItServiceApp.Controllers
 
 
 
-        //field lar için referans eşleme yapıldı.
+        //field lar için referans eşleme yapıldı. İnjekt etme 
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
             RoleManager<AplicationRole> roleManager, IEmailSender emailSender, IMapper mapper)
         {
@@ -350,6 +350,8 @@ namespace ItServiceApp.Controllers
             if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(code))
             {
                 return BadRequest("Hatalı istek");
+                
+                
             }
 
             ViewBag.Code = code;
@@ -392,5 +394,7 @@ namespace ItServiceApp.Controllers
 
         }
 
+
+       
     }
 }

@@ -1,4 +1,5 @@
 using ItServiceApp.Data;
+using ItServiceApp.Extensions;
 using ItServiceApp.InjectOrnek;
 using ItServiceApp.MapperProfiles;
 using ItServiceApp.Models.Identity;
@@ -60,14 +61,9 @@ namespace ItServiceApp
 
             });
 
-            ///Mapper iþlemi => tipler arasý casting iþlemini hýzlandýrýr. As ile model dönüþümünü otomatik yapar
-            services.AddAutoMapper(options => 
-            {
-                options.AddProfile(typeof(AccountProfile));
-            });
-            //services.AddScoped<IMyDependency,MyDependency>();
-            services.AddScoped<IMyDependency, NewMyDependency>();// Loose coupling - Solid o- polimorhism
-            services.AddTransient<IEmailSender, EmailSender>();// Transient ihtiyaç duydukça
+            
+
+            services.AddApplicationServices(this.Configuration);
             services.AddControllersWithViews();
             //services.AddTransient<EmailSender>();// Bu þekilde yapýlýnca loose coupling olmuyor
         }
