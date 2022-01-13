@@ -11,6 +11,6 @@ namespace ItServiceApp.Models.Payment
         public CardModel CardModel { get; set; }
         public List<BasketModel> BasketList { get; set; }
         public CustomerModel Customer { get; set; }
-        public AddressModel AdressModel { get; set; }
+        public AddressModel Adress{ get; set; }
     }
 }

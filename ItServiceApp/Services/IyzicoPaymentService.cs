@@ -65,7 +65,7 @@ namespace ItServiceApp.Services
 
             Console.WriteLine();
             return resultModel;
-            return null;
+            //return null;
         }
 
 

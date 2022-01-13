@@ -1,6 +1,10 @@
-﻿using ItServiceApp.Services;
+﻿using ItServiceApp.Models;
+using ItServiceApp.Models.Payment;
+using ItServiceApp.Services;
+using ItServiceApp.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace ItServiceApp.Controllers
 {
@@ -18,6 +22,7 @@ namespace ItServiceApp.Controllers
         {
             return View();
         }
+        [Authorize]
         [HttpPost]
         public IActionResult CheckInstallment( string binNumber)
         {
@@ -28,6 +33,24 @@ namespace ItServiceApp.Controllers
 
             var result = _paymentService.CheckInstallments(binNumber, 1000);
             return Ok(result);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Index(PaymentViewModel model)
+        {
+
+            var paymenModel = new PaymentModel()
+            {
+                Installment = model.Installment,
+                Adress = new AddressModel(),
+                BasketList = new List<BasketModel>(),
+                Customer = new CustomerModel(),
+                CardModel = new CardModel(),
+                Price = 1000,
+            };
+            
+            return View(model);
         }
 
     }
