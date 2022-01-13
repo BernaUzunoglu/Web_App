@@ -16,6 +16,7 @@ namespace ItServiceApp.Extensions
             services.AddAutoMapper(options =>
             {
                 options.AddProfile(typeof(AccountProfile));
+                options.AddProfile(typeof(PaymentProfile));
             });
             //services.AddScoped<IMyDependency,MyDependency>();
             services.AddScoped<IMyDependency, NewMyDependency>();// Loose coupling - Solid o- polimorhism

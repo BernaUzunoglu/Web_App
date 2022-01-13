@@ -1723,6 +1723,15 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "UsefulMethods/1.0.5": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.1/MUsefulMethods.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/MUsefulMethods.dll": {}
+        }
       }
     }
   },
@@ -6223,6 +6232,18 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "UsefulMethods/1.0.5": {
+      "sha512": "aNUSV5eW/7tNdxjm/AQQJ9zGquvLRdymeRYh+x54Lwwez+2a7SW3IEfWs6vDwq4cgAgN8LVF2dltQuJLazD1Ng==",
+      "type": "package",
+      "path": "usefulmethods/1.0.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netcoreapp3.1/MUsefulMethods.dll",
+        "usefulmethods.1.0.5.nupkg.sha512",
+        "usefulmethods.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
@@ -6233,7 +6254,8 @@
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 5.0.13",
       "Microsoft.EntityFrameworkCore >= 5.0.13",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.13",
-      "Microsoft.EntityFrameworkCore.Tools >= 5.0.13"
+      "Microsoft.EntityFrameworkCore.Tools >= 5.0.13",
+      "UsefulMethods >= 1.0.5"
     ]
   },
   "packageFolders": {
@@ -6309,6 +6331,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[5.0.13, )"
+          },
+          "UsefulMethods": {
+            "target": "Package",
+            "version": "[1.0.5, )"
           }
         },
         "imports": [

@@ -61,8 +61,6 @@ namespace ItServiceApp
 
             });
 
-            
-
             services.AddApplicationServices(this.Configuration);
             services.AddControllersWithViews();
             //services.AddTransient<EmailSender>();// Bu þekilde yapýlýnca loose coupling olmuyor

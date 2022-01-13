@@ -786,3 +786,5 @@ C:\Users\BERNA\Desktop\Web_App\ItServiceApp\obj\Debug\net5.0\Razor\Views\Account
 C:\Users\BERNA\Desktop\Web_App\ItServiceApp\obj\Debug\net5.0\Razor\Views\Account\ResetPassword.cshtml.g.cs
 C:\Users\BERNA\Desktop\Web_App\ItServiceApp\obj\Debug\net5.0\Razor\Views\Account\ConfirmResetPassword.cshtml.g.cs
 C:\Users\BERNA\Desktop\Web_App\ItServiceApp\bin\Debug\net5.0\Iyzipay.dll
+C:\Users\BERNA\Desktop\Web_App\ItServiceApp\obj\Debug\net5.0\Razor\Views\Payment\Index.cshtml.g.cs
+C:\Users\BERNA\Desktop\Web_App\ItServiceApp\bin\Debug\net5.0\MUsefulMethods.dll

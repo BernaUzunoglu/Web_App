@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "nXwSMz6x+0FrDfULbl+bwPwKhWBxsTmJcVdqgjDwqo3jr+5bR5gSMN69r7BUvcm2CmEm5YzqLrI0+gHOwmLWPQ==",
+  "dgSpecHash": "C2LqvaoKSIDmwfXYDi8rgna36WGqhYCy9GDt4f+uFnYG+43xm43JmuqlaRXxjTv+nKFE7NZkGZ3WF2UUCdZKuw==",
   "success": true,
   "projectFilePath": "C:\\Users\\BERNA\\Desktop\\Web_App\\ItServiceApp\\ItServiceApp.csproj",
   "expectedPackageFiles": [
@@ -115,7 +115,8 @@
     "C:\\Users\\BERNA\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\BERNA\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\BERNA\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\BERNA\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Users\\BERNA\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\BERNA\\.nuget\\packages\\usefulmethods\\1.0.5\\usefulmethods.1.0.5.nupkg.sha512"
   ],
   "logs": []
 }
