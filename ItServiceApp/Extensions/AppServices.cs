@@ -12,9 +12,10 @@ namespace ItServiceApp.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services,
             IConfiguration configuration)
         {
-            ///Mapper işlemi => tipler arası casting işlemini hızlandırır. As ile model dönüşümünü otomatik yapar
+            ///Mapper işlemi => tipler arası casting işlemini hızlandırır. As ile model dönüşümününü otomatik yapar
             services.AddAutoMapper(options =>
             {
+                //Mapper ile eşlenecek modellerin Profileri eklenmek zorundadır.
                 options.AddProfile(typeof(AccountProfile));
                 options.AddProfile(typeof(PaymentProfile));
             });

@@ -2,7 +2,7 @@
 
 namespace ItServiceApp.Models.Payment
 {
-    public class InstallmentModel
+    public class InstallmentModel// Taksit
     {
         public string BinNumber { get; set; }
         public int Commercial { get; set; }
@@ -14,7 +14,7 @@ namespace ItServiceApp.Models.Payment
         public long? BankCode { get; set; }
         public string BankName { get; set; }
         public int? ForceCvc { get; set; }
-        public List<InstallmentPriceModel> InstallmentPrices { get; set; }
+        public List<InstallmentPriceModel> InstallmentPrices { get; set; }// birden fazla taksit seçeneği olduğu için List<InstallmentPriceModel>
 
     }
 }

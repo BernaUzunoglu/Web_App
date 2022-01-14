@@ -1,6 +1,6 @@
 ﻿namespace ItServiceApp.Models.Payment
 {
-    public class PaymentResponseModel
+    public class PaymentResponseModel//Sunucunun istemciye cevap vermesini sağlayan propertiler. Yani istek karşılığında elimize geçecek olan veriler.
     {
         public string Price { get; set; }
         public string PaidPrice { get; set; }

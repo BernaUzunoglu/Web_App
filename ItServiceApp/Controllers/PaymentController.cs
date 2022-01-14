@@ -1,10 +1,12 @@
-﻿using ItServiceApp.Models;
+﻿using ItServiceApp.Extensions;
+using ItServiceApp.Models;
 using ItServiceApp.Models.Payment;
 using ItServiceApp.Services;
 using ItServiceApp.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ItServiceApp.Controllers
 {
@@ -24,6 +26,7 @@ namespace ItServiceApp.Controllers
         }
         [Authorize]
         [HttpPost]
+        //
         public IActionResult CheckInstallment( string binNumber)
         {
             if(binNumber.Length != 6) return BadRequest(new
@@ -40,17 +43,37 @@ namespace ItServiceApp.Controllers
         public IActionResult Index(PaymentViewModel model)
         {
 
-            var paymenModel = new PaymentModel()
+            var paymentModel = new PaymentModel()
             {
                 Installment = model.Installment,
                 Adress = new AddressModel(),
                 BasketList = new List<BasketModel>(),
                 Customer = new CustomerModel(),
-                CardModel = new CardModel(),
+                CardModel =model.CardModel,
                 Price = 1000,
+                UserId=HttpContext.GetUserId(),
+                Ip=Request.HttpContext.Connection.RemoteIpAddress?.ToString(),
             };
-            
-            return View(model);
+
+            var installmentInfo=_paymentService.CheckInstallments(paymentModel.CardModel.CardNumber.Substring(0, 6), paymentModel.Price);
+
+            var installmentNumber=installmentInfo.InstallmentPrices.FirstOrDefault(x => x.InstallmentNumber == model.Installment);
+
+            paymentModel.PaidPrice = decimal.Parse(installmentNumber != null ? installmentNumber.TotalPrice.Replace('.', ',') : installmentInfo.InstallmentPrices[0].TotalPrice.Replace('.', ','));
+
+            //legacy code
+            var result = _paymentService.Pay(paymentModel);
+            return View();
+
+            //if (installmentNumber != null)
+            //{
+            //    paymentModel.PaidPrice = decimal.Parse(installmentNumber.TotalPrice);
+            //}
+            //else//Burdaki ihtimal ile elimizdeki kartın taksit seçenekleri dışında bir değer olması durummu mesela 5 taksit seçeneği yok 5 gelirse olmadığı için tek çekimde alacak
+            //{
+            //    paymentModel.PaidPrice = decimal.Parse(installmentInfo.InstallmentPrices[0].TotalPrice);
+            //}
+           // return View(model);
         }
 
     }

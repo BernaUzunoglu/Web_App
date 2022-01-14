@@ -95,6 +95,7 @@
     });
 
     $("#txtCardNumber").keyup(function() {
+        //debugger;
         var bin = $(this).val();
         if (bin.length >=6) {
             //console.log(bin);
@@ -102,6 +103,7 @@
                 binNumber: bin
             };
             $.ajax({
+                //debugger;
                 url: '@Url.Action("CheckInstallment", "Payment")',
                 type: "POST",
                 data: model,
@@ -118,6 +120,7 @@
     });
 
     function fillInstallments(installmentPrices) {
+        //debugger;
         $("#table-installment").empty();
 
         for (var i = 0; i < installmentPrices.length; i++) {
