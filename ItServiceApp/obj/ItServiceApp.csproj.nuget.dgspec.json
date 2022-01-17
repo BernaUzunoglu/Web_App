@@ -74,6 +74,10 @@
               "target": "Package",
               "version": "[5.0.13, )"
             },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
             "UsefulMethods": {
               "target": "Package",
               "version": "[1.0.5, )"

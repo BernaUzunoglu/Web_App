@@ -197,7 +197,7 @@ namespace ItServiceApp.Controllers
                     Subject = $"Merhaba Berna mail geldi mi"
 
                 });
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {area=""});
             }
             else
             {

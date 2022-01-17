@@ -84,6 +84,7 @@ namespace ItServiceApp
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapAreaControllerRoute("Admin", "Admin", "Admin/{controller=Manage}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(//Controller için default path verme iþlemi
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");// varsayýlan bir rooting oluþturduk.
