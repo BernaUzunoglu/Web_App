@@ -363,5 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 /node_modules
-/.vs
 node_modules/
+.vs/
