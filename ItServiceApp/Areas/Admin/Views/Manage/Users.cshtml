@@ -130,6 +130,19 @@
                     {
                         caption:'E-Posta',
                         dataField:"email"   
+                    },
+                    {
+                        caption:'Detay',
+                        cellTemplate:function(container,options){
+                            console.log(options);
+                            var current=options.data;
+                            var url='@Url.Action("UserDetail","Manage")'+'/'+current.id;
+                            //console.log(url);
+                            $("<a href="+url+"/>")
+                            .text("Detay")
+                            .addClass('btn btn-block btn-default btn-sm')
+                            .appendTo(container);
+                        }   
                     }
                     ],
                     showBorders:true,

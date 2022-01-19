@@ -78,15 +78,17 @@ namespace ItServiceApp
             }
 
             
-            app.UseStaticFiles();//www klasörü içerisindeki yapýlarý kullanmamýzý saðlayan komut css-js vs.
+         
             app.UseHttpsRedirection();//Uygulamamýz http de çalýþþsýn
-            app.UseRouting();
-
+            app.UseStaticFiles();//www klasörü içerisindeki yapýlarý kullanmamýzý saðlayan komut css-js vs.
             app.UseStaticFiles(new StaticFileOptions()
             {
                 //burda sanal bir dosya yolu yazdýk. Yönlendirme vedor diyince node_modules
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"node_modules")), RequestPath = new PathString("/vendor")
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"node_modules")),
+                RequestPath = new PathString("/vendor")
             });
+
+            app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
