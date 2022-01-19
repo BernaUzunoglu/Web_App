@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "SgbtoiElj6WfaBQz/wSjjLhKb1/+uyTkULtDJhH4H+VgrFUqBu+SykwK5FV9C3GUdas8AJyqm1ch56hNSNn8nQ==",
+  "dgSpecHash": "tsSP7EdE/InuKs6vSbI5faBNdPuAKkahUIXefSopHZeTT2d8e09DLApcj6EiRQoUO4LFiGQ8VM3xgk9MYdb1JQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\BERNA\\Desktop\\Web_App\\ItServiceApp\\ItServiceApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\BERNA\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
     "C:\\Users\\BERNA\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
+    "C:\\Users\\BERNA\\.nuget\\packages\\devextreme.aspnet.data\\2.8.6\\devextreme.aspnet.data.2.8.6.nupkg.sha512",
     "C:\\Users\\BERNA\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\BERNA\\.nuget\\packages\\iyzipay\\2.1.39\\iyzipay.2.1.39.nupkg.sha512",
     "C:\\Users\\BERNA\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.13\\microsoft.aspnetcore.cryptography.internal.5.0.13.nupkg.sha512",

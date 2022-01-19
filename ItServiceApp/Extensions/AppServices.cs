@@ -23,6 +23,7 @@ namespace ItServiceApp.Extensions
             services.AddScoped<IMyDependency, NewMyDependency>();// Loose coupling - Solid o- polimorhism
             services.AddTransient<IEmailSender, EmailSender>();// Transient ihtiyaç duydukça
             services.AddScoped<IPaymentService, IyzicoPaymentService>();
+            
 
 
             return services;
