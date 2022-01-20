@@ -28,7 +28,7 @@ namespace ItServiceApp.Controllers
 
 
 
-        //field lar için referans eşleme yapıldı. İnjekt etme 
+        //field lar için referans eşleme yapıldı. Inject etme 
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
             RoleManager<AplicationRole> roleManager, IEmailSender emailSender, IMapper mapper)
         {

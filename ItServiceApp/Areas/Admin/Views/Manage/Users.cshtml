@@ -51,103 +51,150 @@
 
 
 @section Scripts{
-   
-    <script>
-        $(()=>{
-            //console.log("Sayfa Hazır");
-            var userData=null;
-            $.ajax({
-                url:'@Url.Action("GetUsers","UserApi")',
+    <script src="~/vendor/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
 
-                method:'GET',
-                success:function(response){
-                    console.log(response);
-                    if(response.isSuccess){
-                        userData=response.data;
-                        loadGrid();
-                    }
-                    else{
-                        alert(response.errorMessage);
-                    }
-                },
-                error:function(a,b,c){
-                    console.log(a);
-                    console.log(b);
-                    console.log(c);
-                }
-            });
+<script>
+       var dataGrid=null;
+      $(()=>{
+          //console.log("Sayfa Hazır");
+          var userData=null;
+          var url ='../../../api/userapi';
+          //$.ajax({
+          //    url:'@Url.Action("GetUsers","UserApi")',
 
-            function loadGrid(){
-                $('#dxGrid').dxDataGrid({
-                    showColumnLines:true,
-                    allowColumnResizing:true,
-                    showRowLines:true,
-                    rowAlternationEnabled:true,
-                    showBorders:true,
-                    dataSource:userData,
-                    searchPanel:{
-                        visible:true,
-                        width:240,
-                        placeholder:"Ara..." 
-                    },
-                    filterRow:{
-                        visible:true,
-                        applyFilter:"auto" 
-                    },
-                    headerFilter:{
-                        visible:true,
-                        
-                    },
-                    export:{
-                        enabled:true,
-                        fileName:`Tüm kullanıcılar_${parseInt(Math.random()*1000000000)}`,
-                        allowExportSelectedData:true
-                    },
-                    paging:{
-                        pageSize:20
-                    },
-                    pager:{
-                        showPageSizeSelector:true,
-                        allowPageSizes:[5,15,30,45],
-                        showInfo:true
-                    },
+          //    method:'GET',
+          //    success:function(response){
+          //        console.log(response);
+          //        if(response.isSuccess){
+          //            userData=response.data;
+          //            loadGrid();
+          //        }
+          //        else{
+          //            alert(response.errorMessage);
+          //        }
+          //    },
+          //    error:function(a,b,c){
+          //        console.log(a);
+          //        console.log(b);
+          //        console.log(c);
+          //    }
+          //});
+
+          function loadGrid(){
+              dataGrid=$('#dxGrid').dxDataGrid({
+                   dataSource: DevExpress.data.AspNet.createStore({
+                   key: 'id',
+                   loadUrl: `${url}/getusers`,
+                   updateUrl: `${url}/updateusers`
+                    //insertUrl: `${url}/InsertOrder`,
+                    //deleteUrl: `${url}/DeleteOrder`,
+                    //onBeforeSend(method, ajaxOptions) {
+                    // ajaxOptions.xhrFields = { withCredentials: true };
+                    //}
+                   }),
+                   editing:{
+                       mode:'popup',
+                       //mode:'form', // bu şekilde tapınca bilgiler form ile geliyor
+                       //mode:'row',
+                       allowUpdating:true
+                   },
+                   remoteOperations:{
+                       paging:true,
+                       filtering:true,
+                       sorting:true,
+                       grouping:true,
+                       summary:true,
+                       groupPaging:true
+                   },
+                  showColumnLines:true,
+                  allowColumnResizing:true,
+                  showRowLines:true,
+                  rowAlternationEnabled:true,
+                  showBorders:true,
+                 // dataSource:userData,
+                 
+                  searchPanel:{
+                      visible:true,
+                      width:240,
+                      placeholder:"Ara..."
+                  },
+                  filterRow:{
+                      visible:true,
+                      applyFilter:"auto"
+                  },
+                  headerFilter:{
+                      visible:true,
+
+                  },
+                  export:{
+                      enabled:true,
+                      fileName:`Tüm kullanıcılar_${parseInt(Math.random()*1000000000)}`,
+                      allowExportSelectedData:true
+                  },
+                  paging:{
+                      pageSize:20
+                  },
+                  pager:{
+                      showPageSizeSelector:true,
+                      allowPageSizes:[5,15,30,45],
+                      showInfo:true
+                  },
+                  selection:{//çoklu seçim
+                      mode:"multiple"
+                  },
 
 
-                    columns:[
-                        {
-                        caption:'Id',
-                        dataField:"id",
-                        visible:false,
-                        allowFiltering:false
-                    },{
-                        caption:'Ad',
-                        dataField:"name"   
-                    },
-                    {
-                        caption:'Soyad',
-                        dataField:"surname"   
-                    },
-                    {
-                        caption:'E-Posta',
-                        dataField:"email"   
-                    },
-                    {
-                        caption:'Detay',
-                        cellTemplate:function(container,options){
-                            console.log(options);
-                            var current=options.data;
-                            var url='@Url.Action("UserDetail","Manage")'+'/'+current.id;
-                            //console.log(url);
-                            $("<a href="+url+"/>")
-                            .text("Detay")
-                            .addClass('btn btn-block btn-default btn-sm')
-                            .appendTo(container);
-                        }   
-                    }
-                    ],
-                    showBorders:true,
-                });
-            }
-        })
-    </script>
+                  columns:[
+                      {
+                      caption:'Id',
+                      dataField:"id",
+                      visible:false,
+                      allowFiltering:false,
+                      formItem:{visible:false}//form şeklinde gelince bu item gizli geliyor
+                  },{
+                      caption:'Ad',
+                      dataField:"name"
+                  },
+                  {
+                      caption:'Soyad',
+                      dataField:"surname"
+                  },
+                  {
+                      caption:'E-Posta',
+                      dataField:"email"
+                  },
+                  {
+                      caption:'Email Onay',
+                      dataField:"emailConfirmed",
+                      dataType:'boolean'
+                  },
+                  {
+                      caption:'Kayıt Tarihi',
+                      dataField:"createDate",
+                      dataType:"date",
+                      format:'dd/MM/yy',
+                      sortOrder:"desc"
+                  },
+                  {
+                      caption:'Detay',
+                      cellTemplate:function(container,options){
+                          console.log(options);
+                          var current=options.data;
+                          var url='@Url.Action("UserDetail","Manage")'+'/'+current.id;
+                          //console.log(url);
+                          $("<a href="+url+"/>")
+                          .text("Detay")
+                          .addClass('btn btn-block btn-info btn-sm')
+                          .appendTo(container);
+                      }, 
+                      formItem:{visible:false}
+                  }
+                  ],
+                  showBorders:true,
+              }).dxDataGrid("instance");
+          
+          }
+          loadGrid();
+      })
+</script>
 }
