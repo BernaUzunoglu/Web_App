@@ -7,8 +7,8 @@ namespace ItServiceApp.Models.Entities
     public class Address:BaseEntity
     {
         public string Line { get; set; }
-        public string PotstCode { get; set; }
-        public AdressTypes AdressTypes { get; set; }
+        public string PostCode { get; set; }
+        public AdressTypes AddressTypes { get; set; }
         public int StateId { get; set; }
         [StringLength(450)]
         public string UserId { get; set; }

@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using System;
 using System.IO;
 
@@ -65,7 +66,10 @@ namespace ItServiceApp
             });
 
             services.AddApplicationServices(this.Configuration);
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson(options=>{
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+
+            });
             //services.AddTransient<EmailSender>();// Bu þekilde yapýlýnca loose coupling olmuyor
         }
 

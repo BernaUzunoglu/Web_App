@@ -28,7 +28,7 @@ namespace ItServiceApp.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetUsers(DataSourceLoadOptions loadOptions)
+        public IActionResult GetUsers(DataSourceLoadOptions loadOptions)// DevExtreme.AspNet.Data namespace ile gelen içerisinde group,select vs işlemlrin yüklendiği class
         {
             var data = _userManager.Users;
            // var users = _userManager.Users.OrderBy(x => x.CreateDate);.ToList();
@@ -37,13 +37,12 @@ namespace ItServiceApp.Areas.Admin.Controllers
             //{
             //    Data = users
             //});
-            return Ok(DataSourceLoader.Load(data,loadOptions));//
+            return Ok(DataSourceLoader.Load(data,loadOptions));//kullanıcıların bilgilerinin yüklendiği yer
            // return Ok(users);
         }
 
         [HttpPut]
-
-        public async Task<IActionResult> UpdateUsers(string key,string values)
+        public async Task<IActionResult> UpdateUsers(string key,string values)//values de sadece değişiklik olan değerler gelir
         {
             var data=_userManager.Users.FirstOrDefault(x=>x.Id == key);
             if (data == null)
@@ -54,7 +53,7 @@ namespace ItServiceApp.Areas.Admin.Controllers
                     ErrorMessage="Kullanıcı adı bulunamadı"
                 });
 
-            JsonConvert.PopulateObject(values, data);// Düncellenene veriler güncelleniyor değişiklik olmayanlar aynen kalıyor
+            JsonConvert.PopulateObject(values, data);// Güncellenen veriler güncelleniyor değişiklik olmayanlar aynen kalıyor
             if (!TryValidateModel(data))
                 return BadRequest(ModelState.ToFullErrorString());
 

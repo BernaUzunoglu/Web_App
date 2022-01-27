@@ -51,150 +51,241 @@
 
 
 @section Scripts{
-    <script src="~/vendor/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
+<script src="~/vendor/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
 
 <script>
-       var dataGrid=null;
-      $(()=>{
-          //console.log("Sayfa Hazır");
-          var userData=null;
-          var url ='../../../api/userapi';
-          //$.ajax({
-          //    url:'@Url.Action("GetUsers","UserApi")',
+     var dataGrid=null;
+    $(()=>{
+        //console.log("Sayfa Hazır");
+        var userData=null;
+        var url ='../../../api/userapi';
+        //$.ajax({
+        //    url:'@Url.Action("GetUsers","UserApi")',
 
-          //    method:'GET',
-          //    success:function(response){
-          //        console.log(response);
-          //        if(response.isSuccess){
-          //            userData=response.data;
-          //            loadGrid();
-          //        }
-          //        else{
-          //            alert(response.errorMessage);
-          //        }
-          //    },
-          //    error:function(a,b,c){
-          //        console.log(a);
-          //        console.log(b);
-          //        console.log(c);
-          //    }
-          //});
+        //    method:'GET',
+        //    success:function(response){
+        //        console.log(response);
+        //        if(response.isSuccess){
+        //            userData=response.data;
+        //            loadGrid();
+        //        }
+        //        else{
+        //            alert(response.errorMessage);
+        //        }
+        //    },
+        //    error:function(a,b,c){
+        //        console.log(a);
+        //        console.log(b);
+        //        console.log(c);
+        //    }
+        //});
 
-          function loadGrid(){
-              dataGrid=$('#dxGrid').dxDataGrid({
-                   dataSource: DevExpress.data.AspNet.createStore({
-                   key: 'id',
-                   loadUrl: `${url}/getusers`,
-                   updateUrl: `${url}/updateusers`
-                    //insertUrl: `${url}/InsertOrder`,
-                    //deleteUrl: `${url}/DeleteOrder`,
-                    //onBeforeSend(method, ajaxOptions) {
-                    // ajaxOptions.xhrFields = { withCredentials: true };
-                    //}
-                   }),
-                   editing:{
-                       mode:'popup',
-                       //mode:'form', // bu şekilde tapınca bilgiler form ile geliyor
-                       //mode:'row',
-                       allowUpdating:true
-                   },
-                   remoteOperations:{
-                       paging:true,
-                       filtering:true,
-                       sorting:true,
-                       grouping:true,
-                       summary:true,
-                       groupPaging:true
-                   },
-                  showColumnLines:true,
-                  allowColumnResizing:true,
-                  showRowLines:true,
-                  rowAlternationEnabled:true,
-                  showBorders:true,
-                 // dataSource:userData,
-                 
-                  searchPanel:{
-                      visible:true,
-                      width:240,
-                      placeholder:"Ara..."
-                  },
-                  filterRow:{
-                      visible:true,
-                      applyFilter:"auto"
-                  },
-                  headerFilter:{
-                      visible:true,
+        function loadGrid(){
+            dataGrid=$('#dxGrid').dxDataGrid({
+                 dataSource: DevExpress.data.AspNet.createStore({
+                 key: 'id',
+                 loadUrl: `${url}/getusers`,
+                 updateUrl: `${url}/updateusers`
+                  //insertUrl: `${url}/InsertOrder`,
+                  //deleteUrl: `${url}/DeleteOrder`,
+                  //onBeforeSend(method, ajaxOptions) {
+                  // ajaxOptions.xhrFields = { withCredentials: true };
+                  //}
+                 }),
+                 editing:{
+                     mode:'popup',
+                     //mode:'form', // bu şekilde tapınca bilgiler form ile geliyor
+                     //mode:'row',
+                     allowUpdating:true
+                 },
+                 remoteOperations:{
+                     paging:true,
+                     filtering:true,
+                     sorting:true,
+                     grouping:true,
+                     summary:true,
+                     groupPaging:true
+                 },
+                showColumnLines:true,
+                allowColumnResizing:true,
+                showRowLines:true,
+                rowAlternationEnabled:true,
+                showBorders:true,
+               // dataSource:userData,
 
-                  },
-                  export:{
-                      enabled:true,
-                      fileName:`Tüm kullanıcılar_${parseInt(Math.random()*1000000000)}`,
-                      allowExportSelectedData:true
-                  },
-                  paging:{
-                      pageSize:20
-                  },
-                  pager:{
-                      showPageSizeSelector:true,
-                      allowPageSizes:[5,15,30,45],
-                      showInfo:true
-                  },
-                  selection:{//çoklu seçim
-                      mode:"multiple"
-                  },
+                searchPanel:{
+                    visible:true,
+                    width:240,
+                    placeholder:"Ara..."
+                },
+                filterRow:{
+                    visible:true,
+                    applyFilter:"auto"
+                },
+                headerFilter:{
+                    visible:true,
+
+                },
+                export:{
+                    enabled:true,
+                    fileName:`Tüm kullanıcılar_${parseInt(Math.random()*1000000000)}`,
+                    allowExportSelectedData:true
+                },
+                paging:{
+                    pageSize:20
+                },
+                pager:{
+                    showPageSizeSelector:true,
+                    allowPageSizes:[5,15,30,45],
+                    showInfo:true
+                },
+                selection:{//çoklu seçim
+                    mode:"multiple"
+                },
 
 
-                  columns:[
-                      {
-                      caption:'Id',
-                      dataField:"id",
-                      visible:false,
-                      allowFiltering:false,
-                      formItem:{visible:false}//form şeklinde gelince bu item gizli geliyor
-                  },{
-                      caption:'Ad',
-                      dataField:"name"
-                  },
-                  {
-                      caption:'Soyad',
-                      dataField:"surname"
-                  },
-                  {
-                      caption:'E-Posta',
-                      dataField:"email"
-                  },
-                  {
-                      caption:'Email Onay',
-                      dataField:"emailConfirmed",
-                      dataType:'boolean'
-                  },
-                  {
-                      caption:'Kayıt Tarihi',
-                      dataField:"createDate",
-                      dataType:"date",
-                      format:'dd/MM/yy',
-                      sortOrder:"desc"
-                  },
-                  {
-                      caption:'Detay',
-                      cellTemplate:function(container,options){
-                          console.log(options);
-                          var current=options.data;
-                          var url='@Url.Action("UserDetail","Manage")'+'/'+current.id;
-                          //console.log(url);
-                          $("<a href="+url+"/>")
-                          .text("Detay")
-                          .addClass('btn btn-block btn-info btn-sm')
-                          .appendTo(container);
-                      }, 
-                      formItem:{visible:false}
-                  }
-                  ],
-                  showBorders:true,
-              }).dxDataGrid("instance");
-          
-          }
-          loadGrid();
-      })
+                columns:[
+                    {
+                    caption:'Id',
+                    dataField:"id",
+                    visible:false,
+                    allowFiltering:false,
+                    formItem:{visible:false}//form şeklinde gelince bu item gizli geliyor
+                },
+                {
+                    caption:'Ad',
+                    dataField:"name"
+                },
+                {
+                    caption:'Soyad',
+                    dataField:"surname"
+                },
+                {
+                    caption:'E-Posta',
+                    dataField:"email"
+                },
+                {
+                    caption:'Email Onay',
+                    dataField:"emailConfirmed",
+                    dataType:'boolean'
+                },
+                {
+                    caption:'Kayıt Tarihi',
+                    dataField:"createDate",
+                    dataType:"date",
+                    format:'dd/MM/yy',
+                    sortOrder:"desc"
+                },
+                {
+                    caption:'Detay',
+                    cellTemplate:function(container,options){
+                        console.log(options);
+                        var current=options.data;
+                        var url='@Url.Action("UserDetail","Manage")'+'/'+current.id;
+                        //console.log(url);
+                        $("<a href="+url+"/>")
+                        .text("Detay")
+                        .addClass('btn btn-block btn-info btn-sm')
+                        .appendTo(container);
+                    },
+                    formItem:{visible:false}
+                }
+                ],
+
+                 masterDetail:
+                 {
+                    enabled: true,
+                    template(container, options)
+                    {
+                        var current = options.data;
+                        $('<div>')
+                        
+                            .dxDataGrid({
+                                columnAutoWidth: true,
+                                showBorders: true,
+                                columns:
+                                [
+                                    {
+                                        caption:"Adres",
+                                        dataField:"line"
+                                    },
+                                    {
+                                        caption:"Posta Kodu",
+                                        dataField:"postCode"
+                                    },
+                                    {
+                                        caption:"Adres Tipi",
+                                        dataField:"addressTypes"
+                                    } ,
+                                    {
+                                        caption:"İl",
+                                        dataField:"state.cityId",
+                                        lookup:{
+                                            dataSource:{
+                                                store:DevExpress.data.AspNet.createStore({
+                                                    key:"id",
+                                                    loadUrl:"../../../api/addressapi/citylookup"
+                                                }),
+                                                _fnFeatureHtmlPaginate:true,
+                                                pageSize:10
+                                            },
+                                            displayExpr:"text",
+                                            valueExpr:"value",
+                                             
+                                        }
+                                     },
+                                    {
+                                        caption:"İlçe",
+                                        dataField:"stateId",
+                                        lookup:{
+                                            dataSource:{
+                                                store:DevExpress.data.AspNet.createStore({
+                                                    key:"id",
+                                                    loadUrl:"../../../api/addressapi/statelookup",
+                                                    filter: options.data ? ['StateId', '=', current.stateId] : null
+                                                }),
+                                                _fnFeatureHtmlPaginate:true,
+                                                pageSize:10
+                                            },
+                                            displayExpr:"text",
+                                            valueExpr:"value"
+                                        }
+                                    }
+
+                                ],
+                                editing:{
+                                    mode:'form',
+                                    allowAdding:true,
+                                    allowUpdating:true,
+                                    allowDeleting:true
+                                },
+                                remoteOperations:
+                                {
+                                    paging: true,
+                                    filtering: true,
+                                    sorting: true,
+                                    grouping: true,
+                                    summary: true,
+                                    groupPaging: true
+                                },
+                                dataSource: DevExpress.data.AspNet.createStore({
+                                    key: 'id',
+                                    loadUrl: `../../../api/addressapi/get`,
+                                    loadParams:{userId:current.id},//yüklerken id parametre olarak gönderiyoruz
+                                    insertUrl: `../../../api/addressapi/insert`,
+                                    updateUrl: `../../../api/addressapi/update`,
+                                    deleteUrl: `../../../api/addressapi/delete`,
+                                    //onBeforeSend(method, ajaxOptions) {
+                                    //    ajaxOptions.xhrFields = { withCredentials: true };
+                                    //}
+                                }),
+                            }).appendTo(container);
+                    },
+                },
+            }).dxDataGrid("instance");
+
+        }
+        loadGrid();
+    })
 </script>
 }
