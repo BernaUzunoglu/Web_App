@@ -29,7 +29,7 @@ namespace ItServiceApp.Areas.Admin.Controllers
             var data = _dbContext.Addresses
                 .Include(x => x.State)
                 .ThenInclude(x => x.City)
-                .Where(x=>x.UserId==userId).ToList();
+                .Where(x => x.UserId == userId);//.ToList();
             return Ok(DataSourceLoader.Load(data, options));
         }
         [HttpGet]
@@ -124,7 +124,7 @@ namespace ItServiceApp.Areas.Admin.Controllers
             return Ok(DataSourceLoader.Load(data, loadOptions));
         }
         [HttpGet]
-        public object StateLookup(DataSourceLoadOptions loadOptions)
+        public object StateLookup(int cityId,DataSourceLoadOptions loadOptions)
         {
             var data = _dbContext.States
                 .OrderBy(x => x.Name)
@@ -132,7 +132,8 @@ namespace ItServiceApp.Areas.Admin.Controllers
                 {
                     id = x.Id,
                     Value = x.Id,
-                    Text = $"{x.Name}"
+                    Text = $"{x.Name}",
+                    CityId = x.CityId
 
                 });
             return Ok(DataSourceLoader.Load(data, loadOptions));

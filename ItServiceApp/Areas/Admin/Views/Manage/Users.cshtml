@@ -220,11 +220,13 @@
                                     {
                                         caption:"İl",
                                         dataField:"state.cityId",
+                                        
                                         lookup:{
                                             dataSource:{
                                                 store:DevExpress.data.AspNet.createStore({
                                                     key:"id",
-                                                    loadUrl:"../../../api/addressapi/citylookup"
+                                                    loadUrl:"../../../api/addressapi/citylookup",
+                                                    
                                                 }),
                                                 _fnFeatureHtmlPaginate:true,
                                                 pageSize:10
@@ -237,29 +239,37 @@
                                     {
                                         caption:"İlçe",
                                         dataField:"stateId",
-                                        lookup:{
-                                            dataSource:{
-                                                store:DevExpress.data.AspNet.createStore({
-                                                    key:"id",
-                                                    loadUrl:"../../../api/addressapi/statelookup",
-                                                    filter: options.data ? ['StateId', '=', current.stateId] : null
-                                                }),
-                                                _fnFeatureHtmlPaginate:true,
-                                                pageSize:10
+                                        lookup: {
+                                            dataSource(opt) {
+                                                console.log(opt);
+                                                return {
+                                                    store: DevExpress.data.AspNet.createStore({
+                                                        key: "id",
+                                                        loadUrl: "../../../api/addressapi/statelookup"
+                                                    }),
+                                                    filter: opt.data ? ['CityId', '=', opt.data.state.cityId] : null
+                                                };
                                             },
-                                            displayExpr:"text",
-                                            valueExpr:"value"
+                                            _fnFeatureHtmlPaginate: true,
+                                            pageSize: 10,
+                                            displayExpr: "text",
+                                            valueExpr: "value"
                                         }
                                     }
-
-                                ],
-                                editing:{
-                                    mode:'form',
-                                    allowAdding:true,
-                                    allowUpdating:true,
-                                    allowDeleting:true
+                                    ],
+                                editing: {
+                                    mode: 'form',
+                                    allowAdding: true,
+                                    allowUpdating: true,
+                                    allowDeleting: true
                                 },
-                                remoteOperations:
+                                onEditorPrepared: function (opt) {
+                                    if (opt.parentType == 'dataRow' && opt.dataField == 'state.city.id') {
+                                        opt.editorElement.dxSelectBox('instance').option('onValueChanged', function (e) {
+                                            console.log(e);
+                                        });
+                                    }
+                                },moteOperations:
                                 {
                                     paging: true,
                                     filtering: true,
@@ -278,6 +288,18 @@
                                     //onBeforeSend(method, ajaxOptions) {
                                     //    ajaxOptions.xhrFields = { withCredentials: true };
                                     //}
+                                    onBeforeSend(method, ajaxOptions) {
+                                        ajaxOptions.xhrFields = { withCredentials: true };
+                                        if (method === "update") {
+                                            var dataStr = ajaxOptions.data.values;
+                                            var data = JSON.parse(dataStr);
+                                            data.stateId = data.state.id;
+                                            delete data["state"];
+                                            dataStr = JSON.stringify(data);
+                                            ajaxOptions.data.values = dataStr;
+                                        }
+                                        console.log(ajaxOptions);
+                                    }
                                 }),
                             }).appendTo(container);
                     },
