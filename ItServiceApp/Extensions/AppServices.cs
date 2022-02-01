@@ -18,6 +18,7 @@ namespace ItServiceApp.Extensions
                 //Mapper ile eşlenecek modellerin Profileri eklenmek zorundadır.
                 options.AddProfile(typeof(AccountProfile));
                 options.AddProfile(typeof(PaymentProfile));
+                options.AddProfile<SubscriptionProfiles>();
             });
             //services.AddScoped<IMyDependency,MyDependency>();
             services.AddScoped<IMyDependency, NewMyDependency>();// Loose coupling - Solid o- polimorhism

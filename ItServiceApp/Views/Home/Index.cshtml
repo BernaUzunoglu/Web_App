@@ -1,4 +1,4 @@
-﻿ 
+﻿ @model List<SubscriptionTypeViewModel>
 @{
     ViewBag.Title = "Ana Sayfa";
 } 
@@ -65,3 +65,6 @@
         </div>
     </section>
     <!--====== Banner Slider End ======-->
+    @*<partial name="Partials/_PricePartial" model="Model"/>*@ @*Partial ile çağırma daha sonra componentli örneği yapıldı*@
+
+    @await Component.InvokeAsync("PricingTable");
