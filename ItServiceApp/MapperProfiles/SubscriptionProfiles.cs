@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ItServiceApp.Models.Entities;
-using ItServiceApp.ViewModels;
+using ItServiceApp.ViewModel;
+//using ItServiceApp.ViewModels;
 
 namespace ItServiceApp.MapperProfiles
 {
@@ -9,6 +10,8 @@ namespace ItServiceApp.MapperProfiles
         public SubscriptionProfiles()
         {
             CreateMap<SubscriptionType, SubscriptionTypeViewModel>().ReverseMap();
+            CreateMap<Address, AddressViewModel>().ReverseMap();
+
         }
     }
 }

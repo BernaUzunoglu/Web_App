@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using ItServiceApp.Data;
 using ItServiceApp.InjectOrnek;
-using ItServiceApp.ViewModels;
+using ItServiceApp.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
@@ -23,6 +23,7 @@ namespace ItServiceApp.Controllers
         {
             _myDependency.Log("Home/Index'e girildi");
 
+            //Index view üzerinden Partial view'e veri gönderme.
             //var data = _dbContext.SubscriptionTypes
             //    .ToList()
             //    .Select(x => _mapper.Map<SubscriptionTypeViewModel>(x))

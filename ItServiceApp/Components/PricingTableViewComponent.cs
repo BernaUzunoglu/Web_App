@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using ItServiceApp.Data;
-using ItServiceApp.ViewModels;
+using ItServiceApp.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
